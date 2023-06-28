@@ -31,7 +31,7 @@ export function getAllPostIds() {
 	})
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: any) {
 	const fullPath = path.join(postsDirectory, `${id}.md`)
 	const fileContents = fs.readFileSync(fullPath, "utf8")
 
@@ -39,7 +39,7 @@ export async function getPostData(id) {
 	const matterResult = matter(fileContents)
 
 	// Use remark to convert markdown into HTML string
-	console.log("remark()===>>>>", remark())
+	// console.log("remark()===>>>>", remark())
 	const processedContent = await remark().use(html).process(matterResult.content)
 	const contentHtml = processedContent.toString()
 
@@ -54,7 +54,7 @@ export async function getPostData(id) {
 export function getSortedPostsData() {
 	// Get file names under /posts
 	const fileNames = fs.readdirSync(postsDirectory)
-	const allPostsData = fileNames.map(fileName => {
+	const allPostsData: any[] = fileNames.map(fileName => {
 		// Remove ".md" from file name to get id
 		const id = fileName.replace(/\.md$/, "")
 
