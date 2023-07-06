@@ -1,7 +1,8 @@
 .container {
-	max-width: 36rem;
-	padding: 0 1rem;
-	margin: 3rem auto 6rem;
+	max-width: 1260px;
+	padding: 0;
+	margin: 60px auto 0;
+	text-align: center;
 }
 
 .header {

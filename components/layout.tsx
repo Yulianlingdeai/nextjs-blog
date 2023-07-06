@@ -3,6 +3,7 @@ import Head from "next/head"
 import styles from "./layout.module.css"
 import utilStyles from "../styles/utils.module.css"
 import Link from "next/link"
+import Header from "./header"
 
 const name = "Yulianlingdeai"
 export const siteTitle = "Next.js Sample Website"
@@ -22,7 +23,8 @@ export default function Layout({ children, home }: { children: any, home?: boole
 				<meta name='og:title' content={siteTitle} />
 				<meta name='twitter:card' content='summary_large_image' />
 			</Head>
-			<header className={styles.header}>
+			<Header home={home}></Header>
+			{/* <header className={styles.header}>
 				{home ? (
 					<>
 						<img
@@ -50,7 +52,7 @@ export default function Layout({ children, home }: { children: any, home?: boole
 						</h2>
 					</>
 				)}
-			</header>
+			</header> */}
 			<main>{children}</main>
 			{!home && (
 				<div className={styles.backToHome}>

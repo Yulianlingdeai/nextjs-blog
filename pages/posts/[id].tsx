@@ -5,9 +5,9 @@ import Layout from "../../components/layout"
 import { getAllPostIds, getPostData } from "../../lib/posts"
 import utilStyles from '../../styles/utils.module.css'
 
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from 'next'
+import { GetStaticProps, GetStaticPaths, GetServerSideProps, InferGetStaticPropsType } from 'next'
 
-export default function Post({ postData }: any) {
+export default function Post({ postData }: InferGetStaticPropsType<typeof getStaticProps>) {
 	return (
 		<Layout>
 			<Head>
@@ -33,7 +33,7 @@ export default function Post({ postData }: any) {
 }
 
 /**获取静态路径，这是一个固定函数 */
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths<{ id: string }> = async () => {
 	const paths = getAllPostIds()
 	return {
 		paths,
@@ -42,8 +42,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 /**获取静态Props，这是一个固定函数 */
-export const getStaticProps: GetStaticProps = async ({ params }: any) => {
-	const postData = await getPostData(params.id)
+export const getStaticProps: GetStaticProps<
+	{
+		postData: {
+			title: string;
+			date: string;
+			id: string;
+			contentHtml: string;
+		}
+	},
+  	{ id: string },
+  	any
+> = async ({ params }) => {
+	const postData = await getPostData(params?.id as string)
 	return {
 		props: {
 			postData
